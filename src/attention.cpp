@@ -24,3 +24,18 @@ Eigen::MatrixXf ScaledDotProductAttention::softmax(const Eigen::MatrixXf& input)
     return result;
 }
 
+
+Eigen::MatrixXf ScaledDotProductAttention::forward(
+    const Eigen::MatrixXf& Q,
+    const Eigen::MatrixXf& K,
+    const Eigen::MatrixXf& V 
+){
+    Eigen::MatrixXf scores = Q * K.transpose();
+    scores *= scale_factor_;
+    Eigen::MatrixXf attention_weights = softmax(scores);
+
+    Eigen::MatrixXf output = attention_weights * V;
+    return output;
+}
+
+}

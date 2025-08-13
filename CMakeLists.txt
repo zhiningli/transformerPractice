@@ -22,7 +22,7 @@ add_subdirectory(tests)
 
 # Main executable
 add_executable(transformer_demo examples/main.cpp)
-target_link_libraries(transformer_demo transformer_lib)
+target_link_libraries(transformer_demo transformer_lib Eigen3::Eigen)
 
 # Set output directories
 set_target_properties(transformer_demo PROPERTIES

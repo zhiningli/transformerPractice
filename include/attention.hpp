@@ -19,7 +19,7 @@ class ScaledDotProductAttention{
         ScaledDotProductAttention(int d_k);
 
         /**
-         * @brief Compute the sacled dot-product attention
+         * @brief Compute the scaled dot-product attention
          * @param Q: Query matrix of shape (seq_len, d_k)
          * @param K: Key matrix of shape (seq_len, d_k)
          * @param V: Value matrix of shape (seq_len, d_v)
