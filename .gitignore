@@ -1,0 +1,38 @@
+# Build directories
+build/
+out/
+
+# Visual Studio files
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Compiled binaries
+*.exe
+*.dll
+*.lib
+*.pdb
+
+# IDE files
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# vcpkg installed packages (optional - you might want to include vcpkg.json instead)
+vcpkg_installed/
+
+# Temporary files
+*.tmp
+*.temp
