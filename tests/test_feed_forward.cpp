@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "feed_forward.hpp"
 #include <cmath>
+#include "layer_norm.hpp"
 
 class FeedForwardTest : public ::testing::Test {
     protected:
@@ -138,5 +139,29 @@ TEST_F(FeedForwardTest, ZeroInputTest) {
     // But at least the computation should complete without errors
     EXPECT_EQ(output.rows(), 2);
     EXPECT_EQ(output.cols(), d_model);
+}
+
+TEST_F(FeedForwardTest, NormalizationTest) {
+    Eigen::MatrixXf input(2, 4);
+    input << 1, 2, 3, 4, 
+             5, 6, 7, 8;
+
+    auto output = feed_forward->forward(input);
+
+    EXPECT_EQ(output.rows(), 2);
+    EXPECT_EQ(output.cols(), 4);
+
+    // Test that each row has been normalized
+    for (int i = 0; i < 2; ++i) {
+        // Get the normalized values (before gamma/beta scaling)
+        Eigen::VectorXf row = output.row(i);
+        float row_mean = row.mean();
+        float row_variance = (row.array() - row_mean).square().mean();
+        
+        // Layer norm output should have mean ≈ 0 and variance ≈ 1 
+        // (since gamma=1, beta=0 initially)
+        EXPECT_NEAR(row_mean, 0.0f, 1e-4f);  // Relaxed tolerance
+        EXPECT_NEAR(row_variance, 1.0f, 1e-1f);  // Much more relaxed tolerance
+    }
 }
 

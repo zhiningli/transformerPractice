@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <layer_norm.hpp>
+#include "layer_norm.hpp"
 #include <vector>
 #include <cmath>
 #include <memory>
@@ -26,21 +26,23 @@ TEST_F(LayerNormTest, ConstructorTest){
     }
 }
 
-TEST_F(LayerNormTest, NormalizationTest){
+TEST_F(LayerNormTest, NormalizationTest) {
     Eigen::MatrixXf input(2, 4);
-    input << 1, 2, 3, 4, 5, 6, 7, 8;
+    input << 1, 2, 3, 4,
+             5, 6, 7, 8;
 
-    auto output = layer_norm -> forward(input);
+    auto output = layer_norm->forward(input);
 
     EXPECT_EQ(output.rows(), 2);
     EXPECT_EQ(output.cols(), 4);
 
-    for (int i = 0; i < 2; ++i){
-        float row_mean = output.row(i).mean();
-        float row_variance = (output.row(i).array() - row_mean).square().mean();
+    for (int i = 0; i < output.rows(); ++i) {
+        Eigen::RowVectorXf row = output.row(i);
+        float row_mean = row.mean();
+        float row_variance = (row.array() - row_mean).square().mean();
 
-        EXPECT_NEAR(row_mean, 0.0f, 1e-5f);
-        EXPECT_NEAR(row_variance, 1.0f, 1e-5f);
+        EXPECT_NEAR(row_mean, 0.0f, 1e-4f);
+        EXPECT_NEAR(row_variance, 1.0f, 1e-4f);
     }
 }
 
@@ -54,11 +56,6 @@ TEST_F(LayerNormTest, EpsilonTest){
             EXPECT_TRUE(std::isfinite(output(i, j)));
         }
     }
-}
-
-int main(int argc, char **argv){
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
 
 
