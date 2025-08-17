@@ -3,6 +3,7 @@ add_library(transformer_lib STATIC
     embedding.cpp
     attention.cpp
     layer_norm.cpp
+    feed_forward.cpp
 )
 
 # Link Eigen3

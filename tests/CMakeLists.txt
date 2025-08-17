@@ -6,12 +6,14 @@ add_executable(embedding_tests test_embedding.cpp)
 add_executable(attention_tests test_attention.cpp)
 add_executable(multihead_attention_tests test_multihead_attention.cpp)
 add_executable(layer_norm_tests test_layer_norm.cpp)
+add_executable(feed_forward_tests test_feed_forward.cpp)
 
 # Link libraries
 target_link_libraries(embedding_tests transformer_lib GTest::gtest GTest::gtest_main)
 target_link_libraries(attention_tests transformer_lib GTest::gtest GTest::gtest_main)
 target_link_libraries(multihead_attention_tests transformer_lib GTest::gtest GTest::gtest_main)
 target_link_libraries(layer_norm_tests transformer_lib GTest::gtest GTest::gtest_main)
+target_link_libraries(feed_forward_tests transformer_lib GTest::gtest GTest::gtest_main)
 
 # Enable testing
 enable_testing()
@@ -19,3 +21,4 @@ add_test(NAME EmbeddingTests COMMAND embedding_tests)
 add_test(NAME AttentionTests COMMAND attention_tests)
 add_test(NAME MultiHeadAttentionTests COMMAND multihead_attention_tests)
 add_test(NAME LayerNormTests COMMAND layer_norm_tests)
+add_test(NAME FeedForwardTests COMMAND feed_forward_tests)

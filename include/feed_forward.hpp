@@ -65,4 +65,4 @@ class FeedForward{
         const Eigen::MatrixXf& get_last_hidden() const {return last_hidden_;}
 };
 
-}; //namespace transformer
+} //namespace transformer
